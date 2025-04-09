@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/phibra-back-end.props" />
+</Project>

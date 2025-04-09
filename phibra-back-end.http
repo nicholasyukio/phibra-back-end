@@ -1,0 +1,6 @@
+@phibra_back_end_HostAddress = http://localhost:5169
+
+GET {{phibra_back_end_HostAddress}}/entry/
+Accept: application/json
+
+###
