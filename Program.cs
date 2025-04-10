@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Entry.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,7 +26,9 @@ if (builder.Environment.IsDevelopment())
 else
 {
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+               .ConfigureWarnings(warnings =>
+                    warnings.Ignore(RelationalEventId.PendingModelChangesWarning)));
 }
 
 builder.Services.AddControllers();
@@ -45,11 +48,9 @@ using (var scope = app.Services.CreateScope())
     }
     catch (Exception ex)
     {
-        // log ou tratamento de erro
         Console.WriteLine($"Erro ao aplicar migrations: {ex.Message}");
     }
 }
-
 
 app.UseCors("FrontendPolicy");
 
