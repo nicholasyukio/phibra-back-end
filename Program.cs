@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Entry.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-var environment = builder.Environment;
 
 builder.Services.AddCors(options =>
 {
@@ -18,15 +17,13 @@ builder.Services.AddCors(options =>
     });
 });
 
-if (environment.IsDevelopment())
+if (builder.Environment.IsDevelopment())
 {
-    // Development (SQLite)
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 }
 else
 {
-    // Production (PostgreSQL)
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 }
@@ -43,13 +40,14 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseHttpsRedirection(); // Somente no desenvolvimento
 }
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseHttpsRedirection();
-}
 app.UseAuthorization();
 app.MapControllers();
-app.Urls.Add("http://0.0.0.0:8080");
+
+// 🚀 Adiciona a URL com a porta dinâmica
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+app.Urls.Add($"http://*:{port}");
+
 app.Run();
