@@ -64,8 +64,6 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 app.MapControllers();
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-app.Urls.Add($"http://0.0.0.0:{port}");      // IPv4
-app.Urls.Add($"http://localhost:{port}");    // acesso local
-app.Urls.Add($"http://[::]:{port}");         // IPv6
+builder.WebHost.UseUrls($"http://*:{port}");
 Console.WriteLine("Server running!");
 app.Run();
