@@ -4,12 +4,15 @@ using Entry.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Pega a variável de ambiente "PORT" ou usa a porta 8080 como padrão
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 
 // Configura o Kestrel para escutar na porta especificada
 builder.WebHost.UseKestrel(options =>
 {
-    options.ListenAnyIP(int.Parse(port));  // Força a escuta na porta correta
+    // Usamos UseUrls para garantir que o Kestrel não tentará usar uma porta já em uso
+    var url = $"http://0.0.0.0:{port}";
+    builder.WebHost.UseUrls(url);  // Faz a aplicação escutar na porta fornecida pela variável de ambiente
 });
 
 builder.Services.AddCors(options =>
