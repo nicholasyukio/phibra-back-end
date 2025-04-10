@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("phibra-back-end")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c6a4aee90671278d7ee3cc6591d3be31e350a97")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+52e56abf788dfe116e972da5cdd6e207a0a3f9aa")]
 [assembly: System.Reflection.AssemblyProductAttribute("phibra-back-end")]
 [assembly: System.Reflection.AssemblyTitleAttribute("phibra-back-end")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

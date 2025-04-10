@@ -24,6 +24,7 @@ namespace Entry.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] EntryInfo info)
         {
+            info.CreatedAt = DateTime.UtcNow.AddHours(-3);
             _context.EntryInfos.Add(info);
             _context.SaveChanges();
             return Created($"api/entry/{info.Id}", info);

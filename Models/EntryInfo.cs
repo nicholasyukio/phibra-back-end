@@ -11,5 +11,6 @@ namespace Entry.Models
         public string? Type { get; set; }
         public int Value { get; set; }
         public string? User { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }
