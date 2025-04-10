@@ -6,17 +6,24 @@ var environment = builder.Environment;
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        policy =>
+    options.AddPolicy("FrontendPolicy", corsBuilder =>
+    {
+        if (environment.IsDevelopment())
         {
-            policy.AllowAnyOrigin()
-                  .AllowAnyMethod()
-                  .AllowAnyHeader();
-        });
+            corsBuilder
+                .WithOrigins("http://localhost:3000") // seu front local
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        }
+        else
+        {
+            corsBuilder
+                .WithOrigins("https://phibra.nicholasyukio.com.br") // seu domínio de produção
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        }
+    });
 });
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 if (environment.IsDevelopment())
 {
@@ -37,7 +44,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseCors("AllowAll");
+app.UseCors("FrontendPolicy");
 
 if (app.Environment.IsDevelopment())
 {
