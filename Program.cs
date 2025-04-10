@@ -4,8 +4,8 @@ using Entry.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Pega a variável de ambiente "PORT" ou usa a porta 5000 como padrão
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+// Pega a variável de ambiente "PORT" ou usa a porta 5169 como padrão
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5169";
 
 // Configura o Kestrel para escutar na porta especificada
 builder.WebHost.UseKestrel(options =>
