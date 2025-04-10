@@ -8,20 +8,13 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontendPolicy", corsBuilder =>
     {
-        if (environment.IsDevelopment())
-        {
-            corsBuilder
-                .WithOrigins("http://localhost:3000") // seu front local
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        }
-        else
-        {
-            corsBuilder
-                .WithOrigins("https://phibra.nicholasyukio.com.br") // seu domínio de produção
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        }
+        corsBuilder
+            .WithOrigins(
+                "http://localhost:3000",
+                "https://phibra.nicholasyukio.com.br"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
     });
 });
 
