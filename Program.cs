@@ -34,6 +34,23 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        var context = services.GetRequiredService<ApplicationDbContext>();
+        context.Database.Migrate(); // Aplica as migrations e cria o schema
+    }
+    catch (Exception ex)
+    {
+        // log ou tratamento de erro
+        Console.WriteLine($"Erro ao aplicar migrations: {ex.Message}");
+    }
+}
+
+
 app.UseCors("FrontendPolicy");
 
 if (app.Environment.IsDevelopment())
