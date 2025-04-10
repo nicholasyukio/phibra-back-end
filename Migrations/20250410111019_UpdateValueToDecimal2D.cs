@@ -10,25 +10,21 @@ namespace phibra_back_end.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<decimal>(
-                name: "Value",
-                table: "EntryInfos",
-                type: "decimal(10,2)",
-                nullable: false,
-                oldClrType: typeof(decimal),
-                oldType: "TEXT");
+            migrationBuilder.Sql(@"
+                ALTER TABLE ""EntryInfos""
+                ALTER COLUMN ""Value"" TYPE decimal(10,2)
+                USING ""Value""::decimal(10,2);
+            ");
         }
 
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<decimal>(
-                name: "Value",
-                table: "EntryInfos",
-                type: "TEXT",
-                nullable: false,
-                oldClrType: typeof(decimal),
-                oldType: "decimal(10,2)");
+            migrationBuilder.Sql(@"
+                ALTER TABLE ""EntryInfos""
+                ALTER COLUMN ""Value"" TYPE TEXT
+                USING ""Value""::text;
+            ");
         }
+
     }
 }
