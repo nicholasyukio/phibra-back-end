@@ -4,6 +4,14 @@ using Entry.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+
+// Configura o Kestrel para escutar na porta especificada
+builder.WebHost.UseKestrel(options =>
+{
+    options.ListenAnyIP(int.Parse(port));  // Força a escuta na porta correta
+});
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontendPolicy", corsBuilder =>
@@ -63,7 +71,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 app.MapControllers();
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-builder.WebHost.UseUrls($"http://*:{port}");
+
 Console.WriteLine("Server running!");
 app.Run();
